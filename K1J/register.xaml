@@ -1,0 +1,28 @@
+﻿<Window x:Class="K1J.register"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:K1J"
+        mc:Ignorable="d"
+        Title="register" Height="450" Width="800">
+    <Grid>
+        <Label Content="REGISTER" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" FontSize="48"/>
+        <TextBox Name="reg_username" HorizontalAlignment="Left" Margin="343,116,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="194" Height="24" BorderBrush="Black"/>
+        
+        <Button Name="registerButt" Content="Register account" HorizontalAlignment="Center" Margin="0,291,0,0" VerticalAlignment="Top" Height="41" Width="130" Click="registerButt_Click" BorderBrush="Black" Background="#FFFDFDFD" BorderThickness="2,2,2,2"/>
+        <Label Content="Enter username" HorizontalAlignment="Left" Margin="237,115,0,0" VerticalAlignment="Top"/>
+        <Label Content="Enter Password" HorizontalAlignment="Left" Margin="237,232,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.503,0.515"/>
+        <TextBox Name="reg_password" HorizontalAlignment="Left" Margin="343,233,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="194" Height="24" BorderBrush="Black"/>
+        <TextBox x:Name="reg_conPassword" HorizontalAlignment="Left" Margin="343,262,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="194" Height="21" BorderBrush="Black"/>
+        <Label Content="Confirm password" HorizontalAlignment="Left" Margin="237,260,0,0" VerticalAlignment="Top"/>
+        <Button Name="LoginButton" Content="Login" HorizontalAlignment="Center" Margin="0,337,0,0" VerticalAlignment="Top" Click="LoginButton_Click" Background="White" BorderBrush="Black"/>
+        <TextBox x:Name="reg_username_Copy" HorizontalAlignment="Left" Margin="343,145,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="194" Height="24" BorderBrush="Black"/>
+        <Label Content="Enter First name" HorizontalAlignment="Left" Margin="237,144,0,0" VerticalAlignment="Top" Width="95"/>
+        <TextBox x:Name="reg_username_Copy1" HorizontalAlignment="Left" Margin="343,174,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="194" Height="24" BorderBrush="Black"/>
+        <Label Content="Enter Last name" HorizontalAlignment="Left" Margin="237,173,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="reg_username_Copy2" HorizontalAlignment="Left" Margin="343,204,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="194" Height="24" BorderBrush="Black"/>
+        <Label Content="Enter Email" HorizontalAlignment="Left" Margin="237,203,0,0" VerticalAlignment="Top"/>
+
+    </Grid>
+</Window>
