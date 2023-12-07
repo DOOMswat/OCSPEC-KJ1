@@ -10,5 +10,7 @@ namespace K1J
     class session
     {
         public static string username = string.Empty;
+        public static int userID = 0;
+
     }
 }

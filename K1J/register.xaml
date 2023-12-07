@@ -17,10 +17,10 @@
         <TextBox x:Name="reg_Email" HorizontalAlignment="Left" Margin="343,204,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="194" Height="24" BorderBrush="Black"/>
         <Label Content="Enter Email" HorizontalAlignment="Left" Margin="237,203,0,0" VerticalAlignment="Top"/>
         <Label Content="Enter Password" HorizontalAlignment="Left" Margin="237,232,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.503,0.515"/>
-        <TextBox Name="reg_password" HorizontalAlignment="Left" Margin="343,233,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="194" Height="24" BorderBrush="Black"/>
-        <TextBox x:Name="reg_conPassword" HorizontalAlignment="Left" Margin="343,262,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="194" Height="21" BorderBrush="Black"/>
+        <PasswordBox Name="reg_password" HorizontalAlignment="Left" Margin="343,233,0,0" VerticalAlignment="Top" Width="194" Height="24" BorderBrush="Black"/>
+        <PasswordBox x:Name="reg_conPassword" HorizontalAlignment="Left" Margin="343,262,0,0" VerticalAlignment="Top" Width="194" Height="21" BorderBrush="Black"/>
         <Label Content="Confirm password" HorizontalAlignment="Left" Margin="237,260,0,0" VerticalAlignment="Top"/>
-        <Button Name="registerButt" Content="Register account" HorizontalAlignment="Center" Margin="0,291,0,0" VerticalAlignment="Top" Height="41" Width="130" Click="registerButt_Click" BorderBrush="Black" Background="#FFFDFDFD" BorderThickness="2,2,2,2"/>
-        <Button Name="LoginButton" Content="Login" HorizontalAlignment="Center" Margin="0,337,0,0" VerticalAlignment="Top" Click="LoginButton_Click" Background="White" BorderBrush="Black"/>
+        <Button Name="registerButt" Content="Register account" HorizontalAlignment="Center" Margin="0,291,0,0" VerticalAlignment="Top" Height="41" Width="130" Click="registerButt_Click" BorderBrush="Black" Background="#FFFDFDFD" BorderThickness="2,2,2,2" FontWeight="Bold"/>
+        <Button Name="LoginButton" Content="Login" HorizontalAlignment="Center" Margin="0,337,0,0" VerticalAlignment="Top" Click="LoginButton_Click" Background="#FF424242" BorderBrush="Black" Foreground="White" Width="56" Height="21"/>
     </Grid>
 </Window>

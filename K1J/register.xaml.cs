@@ -31,8 +31,11 @@ namespace K1J
             string connStr = "server=ND-COMPSCI;" + "user=TL_S2101550;" + "database=TL_S2101550_k1j;" + "port=3306;" + "password=Notre260605";
             MySqlConnection conn;
             string username = reg_username.Text;
-            string password = reg_password.Text;
-            string conPass = reg_conPassword.Text;
+            string FirstName = reg_FirstName.Text;
+            string LastName = reg_LastName.Text;
+            string Email = reg_Email.Text;
+            string password = reg_password.Password;
+            string conPass = reg_conPassword.Password;
 
 
             if (conPass == password)
@@ -54,10 +57,13 @@ namespace K1J
                             }
                             else
                             {
-                                string insertUserQuery = "INSERT INTO customer (username, password) VALUES (@Username, SHA(@password))";
+                                string insertUserQuery = "INSERT INTO customer (Username, FirstName, LastName, Email, Password) VALUES (@Username, @FirstName, @LastName, @Email, SHA(@password))";
                                 using (MySqlCommand insertCustomerCmd = new MySqlCommand(insertUserQuery, conn)) //ANTI-SQLINJECTION STUFF
                                 {
                                     insertCustomerCmd.Parameters.AddWithValue("@Username", username);
+                                    insertCustomerCmd.Parameters.AddWithValue("@FirstName", FirstName);
+                                    insertCustomerCmd.Parameters.AddWithValue("@LastName", LastName);
+                                    insertCustomerCmd.Parameters.AddWithValue("@Email", Email);
                                     insertCustomerCmd.Parameters.AddWithValue("@password", password);
                                     insertCustomerCmd.ExecuteNonQuery();
                                 }

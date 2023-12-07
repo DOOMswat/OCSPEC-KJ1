@@ -27,8 +27,10 @@ namespace K1J
 
         public Homepage(string username)
         {
+
             InitializeComponent();
             PopulateComboBoxes();
+            getUserID();
             session.username = username;
         }
 
@@ -92,34 +94,33 @@ namespace K1J
             }
             return products;
         }
-        //private void getUserID()
-        //{
-        //    try
-        //    {
-        //        using (MySqlConnection conn = new MySqlConnection(connStr))
-        //        {
-        //            conn.Open();
-        //            string run = "SELECT CustomerID FROM login WHERE userName = @userName";
-        //            using (MySqlCommand cmd = new MySqlCommand(run, conn))
-        //            {
-        //                cmd.Parameters.AddWithValue("@userName", session.username);
-        //                using (MySqlDataReader rdr = cmd.ExecuteReader())
-        //                {
-        //                    if (rdr.Read())
-        //                    {
-        //                        string userID = rdr["userID"].ToString();
-        //                        userDetailsSql.userID = userID;
-        //                        GetWelcomeMessage(userID);
-        //                    }
-        //                }
-        //            }
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        MessageBox.Show("Error with getting user ID: " + ex.Message);
-        //    }
-        //}
+        private void getUserID()
+        {
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(connStr))
+                {
+                    conn.Open();
+                    string run = "SELECT CustomerID FROM customer WHERE Username = @userName";
+                    using (MySqlCommand cmd = new MySqlCommand(run, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@userName", session.username);
+                        using (MySqlDataReader rdr = cmd.ExecuteReader())
+                        {
+                            if (rdr.Read())
+                            {
+                                string userID = rdr["CustomerID"].ToString();
+                                session.userID = userID;
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error with getting user ID: " + ex.Message);
+            }
+        }
 
         private void btn_AddToOrder_Click(object sender, RoutedEventArgs e)
         {
@@ -240,11 +241,11 @@ namespace K1J
             using (MySqlConnection conn = new MySqlConnection(connStr))
             {
                 conn.Open();
-                string username = session.username;
+                string UserID = session.userID;
 
-                string insertOrderQuery = "INSERT INTO ordertable (Username, OrderDate) VALUES (@Username, NOW())";
+                string insertOrderQuery = "INSERT INTO ordertable (CustomerID, OrderDate) VALUES (@CustomerID, NOW())";
                 MySqlCommand insertOrderCmd = new MySqlCommand(insertOrderQuery, conn);
-                insertOrderCmd.Parameters.AddWithValue("@Username", username); 
+                insertOrderCmd.Parameters.AddWithValue("@CustomerID", UserID); 
 
                 insertOrderCmd.ExecuteNonQuery();
 
