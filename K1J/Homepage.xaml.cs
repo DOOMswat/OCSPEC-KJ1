@@ -94,7 +94,7 @@ namespace K1J
             }
             return products;
         }
-        private void getUserID()
+        private int getUserID()
         {
             try
             {
@@ -109,8 +109,16 @@ namespace K1J
                         {
                             if (rdr.Read())
                             {
-                                string userID = rdr["CustomerID"].ToString();
-                                session.userID = userID;
+                                int userID;
+                                if (int.TryParse(rdr["CustomerID"].ToString(), out userID))
+                                {
+                                    session.userID = userID.ToString();
+                                    return userID;
+                                }
+                                else
+                                {
+                                    MessageBox.Show("Invalid CustomerID retrieved.", "Error");
+                                }
                             }
                         }
                     }
@@ -120,7 +128,10 @@ namespace K1J
             {
                 MessageBox.Show("Error with getting user ID: " + ex.Message);
             }
+
+            return -1;
         }
+
 
         private void btn_AddToOrder_Click(object sender, RoutedEventArgs e)
         {
@@ -134,7 +145,7 @@ namespace K1J
             }
             else
             {
-                MessageBox.Show("Please select a product before adding to the order.", "Selection Required", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("Please select a product before adding to the order.", "Selection Required");
             }
         }
 
@@ -151,11 +162,11 @@ namespace K1J
                 UpdateTotalPrice();
                 UpdateShoppingCartListBox();
 
-                MessageBox.Show("Order placed successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("Order placed successfully!", "Success");
             }
             else
             {
-                MessageBox.Show("Please add items to the shopping cart before placing an order.", "Empty Cart", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("Please add items to the shopping cart before placing an order.", "Empty Cart");
             }
         }
 
@@ -212,7 +223,7 @@ namespace K1J
             }
             else
             {
-                MessageBox.Show("Please select a product for price enquiry.", "Selection Required", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("Please select a product for price enquiry.", "Selection Required");
             }
         }
 
@@ -241,24 +252,46 @@ namespace K1J
             using (MySqlConnection conn = new MySqlConnection(connStr))
             {
                 conn.Open();
-                string UserID = session.userID;
+                int userID = getUserID();
 
-                string insertOrderQuery = "INSERT INTO ordertable (CustomerID, OrderDate) VALUES (@CustomerID, NOW())";
-                MySqlCommand insertOrderCmd = new MySqlCommand(insertOrderQuery, conn);
-                insertOrderCmd.Parameters.AddWithValue("@CustomerID", UserID); 
-
-                insertOrderCmd.ExecuteNonQuery();
-
-
-                long orderId = insertOrderCmd.LastInsertedId;
-
-
-                foreach (string product in shoppingCartItems)
+                if (userID != -1)
                 {
-                    InsertOrderItem(conn, orderId, product);
+                    if (userID > 0) 
+                    {
+                        string insertOrderQuery = "INSERT INTO ordertable (CustomerID, OrderDate) VALUES (@CustomerID, NOW())";
+                        MySqlCommand insertOrderCmd = new MySqlCommand(insertOrderQuery, conn);
+                        insertOrderCmd.Parameters.AddWithValue("@CustomerID", userID);
+
+                        try
+                        {
+                            insertOrderCmd.ExecuteNonQuery();
+
+                            long orderId = insertOrderCmd.LastInsertedId;
+
+                            foreach (string product in shoppingCartItems)
+                            {
+                                InsertOrderItem(conn, orderId, product);
+                            }
+
+                            MessageBox.Show("Order placed successfully!", "Success");
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show($"Error placing order: {ex.Message}", "Error");
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Invalid user ID retrieved.", "Error");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Failed to get a valid user ID.", "Error");
                 }
             }
         }
+
 
         private void InsertOrderItem(MySqlConnection conn, long orderId, string productName)
         {
@@ -282,8 +315,3 @@ namespace K1J
 
     }
 }
-
-
-
-
-
